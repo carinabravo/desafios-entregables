@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Interactivo</title>
+</head>
+
+<body>
+    <!--formulario-->
+    <section>
+        <div>
+            <h1 class="titulo">Cotización para alquiler de salón de eventos</h1>
+        </div>
+        <!--comienzo del formulario-->
+        <form id="formulario">
+            <p>Recuerde indicar en cada caso lo que desea para el alquiler del salón y así cotizar correctamente su
+                próximo evento! </p>
+            <!--opciones de evento-->
+            <div id="opciones"></div>
+            <br>
+            <!--indicaciones para cotizar alquiler de salón-->
+            <div class="preguntas_evento">
+                <div>
+                    <label for="numHoras">Cantidad de horas: </label>
+                    <input type="number" id="numHoras">
+                    <label for="numPersonas">Cantidad de invitados: </label>
+                    <input type="number" id="numPersonas">
+                </div>
+                <br>
+                <div id="turnos"></div>
+                <br>
+                <div class="servicios_salon">
+                    <label for="servicios">¿Desea incluir los servicios de Salón? </label>
+                    <select id="servicios" name="servicios">
+                        <option value="seleccione">Seleccione </option>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <!--botón para calcular cotización-->
+            <div class="boton">
+                <input type="button" onclick="calcularCosto()" value="Cotizar">
+                <span id="result"></span>
+                <input type="button" onclick="limpiarForm()" value="Limpiar formulario">
+            </div>
+        </form>
+        <!--fin del formulario-->
+        </div>
+    </section>
+    <script src="./simuladorInteractivo.js"></script>
+</body>
+
+</html>
