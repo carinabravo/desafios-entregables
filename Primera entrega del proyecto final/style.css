@@ -1,0 +1,246 @@
+/*** Base ***/ /*** Base del sitio ***/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  margin: auto;
+  font-family: Cambria;
+}
+
+/* ----- FORMULARIO DE CONTACTO ----- */
+.formulario__uno {
+  display: grid;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0 40px 0;
+}
+
+.titulo_contactanos {
+  display: flex;
+  font-size: 30px;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+.texto_contactanos {
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.formulario__label {
+  display: block;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px 0 10px 0;
+  cursor: pointer;
+}
+
+.formulario__grupo-input {
+  position: relative;
+}
+
+.formulario__input {
+  width: 100%;
+  background: #ffff;
+  border: 1px solid;
+  border-radius: 3px;
+  height: 45px;
+  line-height: 45px;
+  padding: 10px;
+  transition: 0.3s ease all;
+}
+
+.formulario__input:focus {
+  border: 2px solid #0075ff;
+  outline: none;
+  box-shadow: 3px 0px 30px #a3a3a366;
+}
+
+.formulario__input-error {
+  font-size: 13px;
+  margin: 10px 0 5px 0;
+  display: none;
+}
+
+.formulario__input-error-activo {
+  display: block;
+}
+
+.formulario__validacion-estado {
+  position: absolute;
+  margin-left: 5px;
+  z-index: 100;
+  font-size: 15px;
+  opacity: 0;
+}
+
+.casilla__consulta {
+  height: 100%;
+  width: 100%;
+  border: 1px solid;
+  transition: 0.3s ease all;
+}
+
+.casilla__consulta:focus {
+  border: 3px solid #0075ff;
+  outline: none;
+  box-shadow: 3px 0px 30px #a3a3a366;
+}
+
+.formulario__mensaje-exito {
+  height: 60px;
+  width: 35%;
+  padding: 20px 20px 30px 20px;
+  background: #29c436;
+  font-size: 20px;
+  border-radius: 3px;
+  display: none;
+}
+
+.formulario__mensaje {
+  height: 60px;
+  width: 50%;
+  background: #f66060;
+  padding: 20px 20px 30px 20px;
+  border-radius: 3px;
+  display: none;
+}
+
+.formulario__mensaje p {
+  margin: 0;
+  color: #000;
+  font-size: 20px;
+}
+
+.formulario__mensaje-activo,
+.formulario__mensaje-exito-activo {
+  display: block;
+  margin: 15px 0 15px 0;
+}
+
+.btn__dos {
+  display: flex;
+  flex-direction: row;
+}
+.formulario__btn {
+  height: 45px;
+  width: 150px;
+  margin-right: 15px;
+  background-color: #000;
+  color: #ffff;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease all;
+}
+
+.formulario__btn:hover {
+  box-shadow: 3px 0px 30px #a3a3a366;
+}
+
+/* -----  Estilos para Validacion ----- */
+
+.formulario__grupo-correcto .formulario__validacion-estado {
+  color: #29c436;
+  opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__label {
+  color: #bb2929;
+}
+
+.formulario__grupo-incorrecto .formulario__validacion-estado {
+  color: #bb2929;
+  opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__input {
+  border: 2px solid #bb2929;
+}
+
+/* ----- FORMULARIO DE COTIZACIÓN PARA RESERVA Y ALQUILER DE SALÓN ----- */
+
+.formulario__dos {
+  display: grid;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(219, 216, 216);
+  padding: 30px 0 40px 10px;
+}
+
+.titulo_cotizacion {
+  display: flex;
+  font-size: 30px;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.texto_cotizacion {
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.numHoras,
+.numPersonas {
+  width: 70px;
+  height: 30px;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.servicios_salon,
+.turnos,
+.opciones,
+.preguntas_evento {
+  font-size: 16px;
+}
+
+.opciones > input {
+  margin: 7px;
+}
+
+.turnos > input {
+  margin: 7px;
+}
+
+.servicios {
+  width: 90px;
+  height: 30px;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.btn_cuatro {
+  display: flex;
+  flex-direction: row;
+}
+.boton_cotizar {
+  height: 45px;
+  width: 180px;
+  margin-right: 15px;
+  background-color: #000;
+  color: #ffff;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease all;
+}
+
+.boton_cotizar:hover {
+  box-shadow: 3px 0px 30px #a3a3a366;
+}

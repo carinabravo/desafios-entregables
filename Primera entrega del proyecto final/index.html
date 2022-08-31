@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Interactivo</title>
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section class="formulario__uno grid">
+        <div class="contactanos">
+            <!--formulario de contacto-->
+            <div class="form_contactanos">
+                <h1 class="titulo_contactanos">Formulario de contacto</h1>
+            </div>
+            <!--comienzo del formulario-->
+            <form id="formulario__contactanos">
+                <p class="texto_contactanos">Dejanos tu consulta y a la brevedad un miempro de nuestro equipo se pondrá
+                    en contacto con vos para asesorarte y aclarar todas tus dudas!</p>
+
+                <!-- Nombre y Apellido -->
+                <div class="formulario__grupo" id="grupo__nombre">
+                    <label for="nombre" class="formulario__label">Nombre y Apellido</label>
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="nombre" id="nombre"
+                            placeholder="Ingrese su nombre">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El nombre solo puede contener
+                        letras.</p>
+                </div>
+
+                <!-- Correo Electronico -->
+                <div class="formulario__grupo" id="grupo__correo">
+                    <label for="correo" class="formulario__label">Correo Electrónico</label>
+                    <div class="formulario__grupo-input">
+                        <input type="email" class="formulario__input" name="correo" id="correo"
+                            placeholder="nombre@correo.com">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El correo solo debe contener letras, numeros, puntos,
+                        guiones y guion bajo.</p>
+                </div>
+
+                <!-- Teléfono / Celular -->
+                <div class="formulario__grupo" id="grupo__telefono">
+                    <label for="telefono" class="formulario__label">Teléfono</label>
+                    <div class="formulario__grupo-input">
+                        <input type="number" class="formulario__input" name="telefono" id="telefono"
+                            placeholder="Ingrese su teléfono">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El teléfono solo debe contener números.</p>
+                </div>
+
+                <!-- Casilla de Consulta -->
+                <div class="formulario__grupo" id="grupo__consulta">
+                    <label for="text" class="formulario__label">Consulta</label>
+                    <textarea class="casilla__consulta formulario__input" name="consulta" id="consulta"
+                        placeholder="Ingrese su consulta"></textarea>
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    <p class="formulario__input-error">Debe realizar una consulta.</p>
+                </div>
+
+                <!-- Promociones vía E-mail -->
+                <div class="formulario__grupo" id="grupo__terminos">
+                    <label class="formulario__label">
+                        <input class="formulario__checkbox" type="checkbox" name="terminos" id="terminos">
+                        Deseo recibir promociones vía e-mail
+                    </label>
+                </div>
+
+                <!-- Botones -->
+                <div class="btn__dos grid">
+                    <div class="formulario__grupo formulario__grupo-btn-enviar">
+                        <button type="submit" class="formulario__btn">Enviar</button>
+                    </div>
+
+                    <div class="formulario__grupo formulario__grupo-btn-limpiar">
+                        <button type="button" onclick="limpiarFormContacto()" value="Limpiar formulario"
+                            class="formulario__btn">Limpiar</button>
+                    </div>
+                </div>
+
+                <!-- Mensaje de Exito -->
+                <div>
+                    <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">El formulario se envió
+                        correctamente!</p>
+                </div>
+
+                <!-- Mensaje de Error -->
+                <div class="formulario__mensaje" id="formulario__mensaje">
+                    <p><i class="fas fa-exclamation-triangle"></i><b> Error: </b> Debe completar el formulario
+                        correctamente!</p>
+                </div>
+            </form>
+            <!--fin de formulario de contacto-->
+        </div>
+    </section>
+
+    <section class="formulario__dos">
+        <!--formulario de cotización-->
+        <div>
+            <h1 class="titulo_cotizacion">Formulario de Cotización para reserva y alquiler de salón</h1>
+        </div>
+        <!--comienzo del formulario-->
+        <form id="formulario">
+            <p class=" texto_cotizacion">Recuerde indicar en cada caso lo que desea para el alquiler del salón y así
+                cotizar correctamente su
+                próximo evento!</p>
+            <!--opciones de evento-->
+            <div id="opciones" class="opciones">ELIJA UNA OPCIÓN:&nbsp;</div>
+            <br>
+            <!--indicaciones para cotizar alquiler de salón-->
+            <div class="preguntas_evento">
+                <div>
+                    <label for="numHoras">CANTIDAD DE HORAS:&nbsp;</label>
+                    <input type="number" id="numHoras" class="numHoras">
+                    <label for="numPersonas">&nbsp;CANTIDAD DE INVITADOS:&nbsp;</label>
+                    <input type="number" id="numPersonas" class="numPersonas">
+                </div>
+                <br>
+                <!-- Turnos del evento -->
+                <div id="turnos" class="turnos">TURNOS DISPONIBLES:&nbsp;</div>
+                <br>
+                <div class="servicios_salon">
+                    <label for="servicios">SERVICIOS DE SALÓN:&nbsp;</label>
+                    <select id="servicios" name="servicios" class="servicios">
+                        <option value="seleccione">Seleccione </option>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <!--botón para calcular cotización-->
+            <div class="btn_uno grid">
+                <input type="button" onclick="limpiarForm()" value="Limpiar Formulario" class="boton_cotizar">
+                <input type="button" onclick="calcularCosto()" value="Cotizar Evento" class="boton_cotizar">
+                <span id="result"></span>
+            </div>
+        </form>
+        <!--fin del formulario de cotización-->
+        </div>
+    </section>
+    <script src="./index.js"></script>
+</body>
+
+</html>
