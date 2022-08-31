@@ -100,7 +100,7 @@ for (let radio of radios) {
   opcionesDiv.append(label);
 }
 
-/** retorna radios con ciclo For para seleccionar un turno */
+/**  Arrays - retorna radios con ciclo For para seleccionar un turno */
 function crearRadios() {
   let radios = [
     {
