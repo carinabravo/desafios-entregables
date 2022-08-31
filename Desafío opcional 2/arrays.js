@@ -27,7 +27,6 @@ function obtenerNumeroPrompt(texto) {
   do {
     num = parseInt(prompt(texto));
   } while (!Number.isInteger(num));
-
   return num;
 }
 
