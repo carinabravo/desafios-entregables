@@ -146,12 +146,18 @@ function limpiarFormContacto() {
     });
   }
 }
+
 /***** FORMULARIO DE COTIZACIÓN PARA RESERVA Y ALQUILER DE SALÓN *****/
 const AFIRMATIVO = "si";
 const NEGATIVO = "no";
 
 /** Bienvenida a formulario de cotización */
 alert("¡BIENVENIDO/A! te encuentras a un paso de cotizar tu próximo evento.");
+
+crearRadiosTurno();
+crearRadiosOpcion();
+
+// Definición de funciones para formulario de cotización
 
 function calcularCosto() {
   let numHoras = document.getElementById("numHoras").value;
@@ -207,52 +213,55 @@ function resultadoFinal(resultado1, resultado2, resultado3) {
   return `$ ${resultado1 + resultado2 + resultado3}`;
 }
 
-/** Arrays - retornaradios con ciclo For para seleccionar un evento */
-let radios = [
-  {
-    id: "casamiento",
-    value: "Casamiento",
-    type: "radio",
-    name: "opcion",
-  },
-  {
-    id: "cumpleaños",
-    value: "Cumpleaños",
-    type: "radio",
-    name: "opcion",
-  },
-  {
-    id: "despedida",
-    value: "Despedida",
-    type: "radio",
-    name: "opcion",
-  },
-  {
-    id: "otro",
-    value: "Otro",
-    type: "radio",
-    name: "opcion",
-  },
-];
+/** Arrays - retorna radios con ciclo For of para seleccionar un evento */
+function crearRadiosOpcion() {
+  let radios = [
+    {
+      id: "casamiento",
+      value: "Casamiento",
+      type: "radio",
+      name: "opcion",
+    },
+    {
+      id: "cumpleaños",
+      value: "Cumpleaños",
+      type: "radio",
+      name: "opcion",
+    },
+    {
+      id: "despedida",
+      value: "Despedida",
+      type: "radio",
+      name: "opcion",
+    },
+    {
+      id: "otro",
+      value: "Otro",
+      type: "radio",
+      name: "opcion",
+    },
+  ];
 
-const opcionesDiv = document.getElementById("opciones");
+  const opcionesDiv = document.getElementById("opciones");
 
-for (let radio of radios) {
-  let input = document.createElement("input");
-  input.setAttribute("id", radio.id);
-  input.setAttribute("value", radio.value);
-  input.setAttribute("name", radio.name);
-  input.setAttribute("type", radio.type);
+  /**  se crean elementos (radios) al formulario a partir de objetos */
+  for (let radio of radios) {
+    let input = document.createElement("input");
+    input.setAttribute("id", radio.id);
+    input.setAttribute("value", radio.value);
+    input.setAttribute("name", radio.name);
+    input.setAttribute("type", radio.type);
 
-  let label = document.createElement("label");
-  label.setAttribute("for", radio.id);
-  label.innerText = radio.value;
-  opcionesDiv.append(input);
-  opcionesDiv.append(label);
+    let label = document.createElement("label");
+    label.setAttribute("for", radio.id);
+    label.innerText = radio.value;
+    opcionesDiv.append(input);
+    opcionesDiv.append(label);
+  }
 }
 
-/**  Arrays - retorna radios con ciclo For para seleccionar un turno */
-function crearRadios() {
+/**  Arrays - retorna radios con ciclo for of para seleccionar un turno */
+function crearRadiosTurno() {
   let radios = [
     {
       id: "mañana",
@@ -270,6 +279,7 @@ function crearRadios() {
 
   const turnosDiv = document.getElementById("turnos");
 
+  /** se crean elementos (radios) al formulario a partir de objetos */
   for (let radio of radios) {
     let input = document.createElement("input");
     input.setAttribute("id", radio.id);
@@ -284,7 +294,6 @@ function crearRadios() {
     turnosDiv.append(label);
   }
 }
-crearRadios();
 
 /** retorna limpieza del formulario de cotización */
 function limpiarForm() {
