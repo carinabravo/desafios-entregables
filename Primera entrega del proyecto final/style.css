@@ -1,4 +1,4 @@
-/*** Base ***/ /*** Base del sitio ***/
+/*** Base del sitio ***/
 * {
   margin: 0;
   padding: 0;
@@ -194,12 +194,23 @@ body {
   padding-bottom: 20px;
 }
 
-.numHoras,
-.numPersonas {
-  width: 70px;
+.fecha {
+  width: 120px;
   height: 30px;
-  border-radius: 3px;
-  font-size: 13px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.numHoras {
+  width: 90px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.numPersonas {
+  width: 90px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .servicios_salon,
@@ -207,21 +218,27 @@ body {
 .opciones,
 .preguntas_evento {
   font-size: 16px;
+  padding: 10px 0 10px 0;
 }
 
 .opciones > input {
   margin: 7px;
 }
 
-.turnos > input {
-  margin: 7px;
+.servicios_dos {
+  display: flex;
+  flex-direction: row;
 }
 
 .servicios {
-  width: 90px;
+  width: 100px;
   height: 30px;
-  border-radius: 3px;
-  font-size: 13px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.turnos > input {
+  margin: 7px;
 }
 
 .btn_cuatro {
@@ -244,3 +261,22 @@ body {
 .boton_cotizar:hover {
   box-shadow: 3px 0px 30px #a3a3a366;
 }
+
+.boton_reservar {
+  height: 45px;
+  width: 180px;
+  margin-right: 15px;
+  background-color: #000;
+  color: #ffff;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease all;
+}
+
+.boton_reservar:hover {
+  box-shadow: 3px 0px 30px #a3a3a366;
+}
+
+/* ----- FORMULARIO DE RESERVA DE SALÓN ----- */
