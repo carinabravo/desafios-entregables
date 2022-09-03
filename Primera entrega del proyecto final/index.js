@@ -157,63 +157,154 @@ alert("¡BIENVENIDO/A! te encuentras a un paso de cotizar tu próximo evento.");
 crearRadiosTurno();
 crearRadiosOpcion();
 
-// Definición de funciones para formulario de cotización
+// Definición de funciones para el formulario de cotización
 
+/** calcula el costo total de una cotización */
 function calcularCosto() {
-  let numHoras = document.getElementById("numHoras").value;
-  let numPersonas = document.getElementById("numPersonas").value;
-  let servicios = document.getElementById("servicios").value;
+  const datos = obtenerDatosFormCotizacion();
 
-  let resultado1 = costoSalon(numHoras);
-  let resultado2 = costoPorPersona(numPersonas);
-  let resultado3 = costoAlquilerServicios(servicios);
-  let resultadoTotal = resultadoFinal(resultado1, resultado2, resultado3);
-  document.getElementById("result").innerText = resultadoTotal;
+  /** se calculan los costos */
+  let resultado1 = costoSalon(datos.numHoras);
+  let resultado2 = costoPorPersona(datos.numPersonas);
+  let resultado3 = costoAlquilerServicios(datos.servicios);
+
+  /** retorna el resultado final de cotización */
+  let resultadoTotal = resultado1 + resultado2 + resultado3;
+  return resultadoTotal;
 }
 
 /** retorna el costo básico del alquiler del salón */
 function costoSalon(numHoras) {
-  let costoEvento = numHoras * 50000;
-  if (numHoras <= 8) {
-    return costoEvento;
-  } else if (numHoras > 8) {
-    alert("Excede el horario máximo de alquiler.");
-  }
+  return numHoras * 40000;
 }
 
 /** retorna el costo por invitado */
 function costoPorPersona(numPersonas) {
-  let costoPersona = numPersonas * 2000;
-  if (numPersonas <= 1500) {
-    return costoPersona;
-  } else if (numPersonas > 1500) {
-    alert("Excede la capacidad máxima de invitados.");
-  }
+  return numPersonas * 2000;
 }
 
-/** retorna el costo de los servicio de salón si la opción es un SI */
+/** retorna el costo de los servicio de salón si la opción es afirmativa */
 function costoAlquilerServicios(servicios) {
   let costo = 0;
   switch (servicios) {
     case AFIRMATIVO:
-      costo = 180000;
+      costo = 150000;
       break;
     case NEGATIVO:
       costo = 0;
-      break;
-    default:
-      alert("Debe seleccionar una opción de servicio de salón.");
       break;
   }
   return costo;
 }
 
-/** retorna el resultado final de la cotización */
-function resultadoFinal(resultado1, resultado2, resultado3) {
-  return `$ ${resultado1 + resultado2 + resultado3}`;
+/** se obtienen los datos de cotización */
+function obtenerDatosFormCotizacion() {
+  let numHoras = parseInt(document.getElementById("numHoras").value);
+  let numPersonas = parseInt(document.getElementById("numPersonas").value);
+  let servicios = document.getElementById("servicios").value;
+
+  let opciones = [...document.getElementsByName("opcion")];
+  let opcion = opciones.find((radio) => radio.checked); //retorna el primero que cumple la condición.
+
+  let fecha = document.getElementById("fecha").value;
+
+  let turnos = [...document.getElementsByName("turno")];
+  let turno = turnos.find((radio) => radio.checked); //retorna el primero que cumple la condición.
+
+  return {
+    numHoras,
+    numPersonas,
+    servicios,
+    opcion: opcion ? opcion.id : null, // if corto (si opción existe devuelve opción.id, sino devuelve null)
+    fecha: fecha ? fecha : null,
+    turno: turno ? turno.id : null,
+  };
 }
 
-/** Arrays - retorna radios con ciclo For of para seleccionar un evento */
+/** retorna la validación del formulario de cotización */
+function validarFormCotizacion() {
+  const datos = obtenerDatosFormCotizacion();
+
+  const res1 = validarSalon(datos.numHoras);
+  const res2 = validarPorPersona(datos.numPersonas);
+  const res3 = validarAlquilerServicios(datos.servicios);
+  const res4 = validarOpciones(datos.opcion);
+  const res5 = validarFecha(datos.fecha);
+  const res6 = validarTurno(datos.turno);
+
+  mostrarAlertas(res1, res2, res3, res4, res5, res6);
+
+  return res1 && res2 && res3 && res4 && res5 && res6;
+}
+
+/** devuelve alertas al usuario, si las validaciones no se cumplen */
+function mostrarAlertas(horas, personas, servicios, opcion, fecha, turno) {
+  if (!horas) {
+    alert("Ingrese cantidad de horas de alquiler. (Máximo 8 Hs)");
+  }
+  if (!personas) {
+    alert(
+      "Ingrese cantidad de invitados que asistirán al evento.\n(Máximo 1.500 personas)"
+    );
+  }
+  if (!servicios) {
+    alert("Seleccione una opción de servicio de salón.");
+  }
+  if (!opcion) {
+    alert("Seleccione una opción de evento.");
+  }
+  if (!fecha) {
+    alert("Seleccione la fecha del evento.");
+  }
+  if (!turno) {
+    alert("Seleccione un turno.");
+  }
+}
+
+/** retorna las validaciones de cada ejecución */
+function validarSalon(numHoras) {
+  return numHoras <= 8;
+}
+
+function validarPorPersona(numPersonas) {
+  return numPersonas <= 1500;
+}
+
+function validarAlquilerServicios(servicios) {
+  return servicios == AFIRMATIVO || servicios == NEGATIVO;
+}
+
+function validarOpciones(opciones) {
+  return opciones != null;
+}
+
+function validarFecha(fecha) {
+  return fecha != null;
+}
+
+function validarTurno(turnos) {
+  return turnos != null;
+}
+
+/** retorna el costo de cotización luego de validar los resultados */
+function obtenerCalcularCosto() {
+  if (!validarFormCotizacion()) {
+    return;
+  }
+  const resultadoTotal = calcularCosto();
+  document.getElementById("result").innerText = `$ ${resultadoTotal}`;
+}
+
+/** retorna el costo de reserva */
+function obtenerCalcularCostoReserva() {
+  if (!validarFormCotizacion()) {
+    return;
+  }
+  const resultadoTotal = (calcularCosto() * 20) / 100;
+  document.getElementById("result-reserva").innerText = `$ ${resultadoTotal}`;
+}
+
+/** Arrays - retorna "radios" con ciclo For of para seleccionar un evento */
 function crearRadiosOpcion() {
   let radios = [
     {
@@ -244,7 +335,7 @@ function crearRadiosOpcion() {
 
   const opcionesDiv = document.getElementById("opciones");
 
-  /**  se crean elementos (radios) al formulario a partir de objetos */
+  /**  se crean elementos "radios" al formulario a partir de objetos */
   for (let radio of radios) {
     let input = document.createElement("input");
     input.setAttribute("id", radio.id);
@@ -260,7 +351,7 @@ function crearRadiosOpcion() {
   }
 }
 
-/**  Arrays - retorna radios con ciclo for of para seleccionar un turno */
+/**  Arrays - retorna "radios" con ciclo for of para seleccionar un turno */
 function crearRadiosTurno() {
   let radios = [
     {
@@ -279,7 +370,7 @@ function crearRadiosTurno() {
 
   const turnosDiv = document.getElementById("turnos");
 
-  /** se crean elementos (radios) al formulario a partir de objetos */
+  /** se crean elementos "radios" al formulario a partir de objetos */
   for (let radio of radios) {
     let input = document.createElement("input");
     input.setAttribute("id", radio.id);
