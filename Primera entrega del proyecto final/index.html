@@ -13,7 +13,7 @@
 <body>
     <section class="formulario__uno grid">
         <div class="contactanos">
-            <!--formulario de contacto-->
+            <!--Formulario de contacto-->
             <div class="form_contactanos">
                 <h1 class="titulo_contactanos">Formulario de contacto</h1>
             </div>
@@ -98,53 +98,62 @@
                         correctamente!</p>
                 </div>
             </form>
-            <!--fin de formulario de contacto-->
+            <!--Fin de formulario de contacto-->
         </div>
     </section>
 
     <section class="formulario__dos">
-        <!--formulario de cotización-->
+        <!--Formulario de cotización-->
         <div>
             <h1 class="titulo_cotizacion">Formulario de Cotización para reserva y alquiler de salón</h1>
         </div>
-        <!--comienzo del formulario-->
+        <!--Comienzo del formulario-->
         <form id="formulario">
             <p class=" texto_cotizacion">Recuerde indicar en cada caso lo que desea para el alquiler del salón y así
                 cotizar correctamente su
                 próximo evento!</p>
-            <!--opciones de evento-->
+            <!--Opciones de evento-->
             <div id="opciones" class="opciones">ELIJA UNA OPCIÓN:&nbsp;</div>
             <br>
-            <!--indicaciones para cotizar alquiler de salón-->
+            <!--Indicaciones para cotizar alquiler de salón-->
             <div class="preguntas_evento">
                 <div>
+                    <!--Calendario-->
+                    <label for="fechaEvento">FECHA DEL EVENTO:&nbsp;</label>
+                    <input type="date" id="fecha" name="fecha" value="fecha" class="fecha">
+                    <!--Selección de c/horas-->
                     <label for="numHoras">CANTIDAD DE HORAS:&nbsp;</label>
                     <input type="number" id="numHoras" class="numHoras">
+                    <!--Selección de c/invitados-->
                     <label for="numPersonas">&nbsp;CANTIDAD DE INVITADOS:&nbsp;</label>
                     <input type="number" id="numPersonas" class="numPersonas">
+                    <i class="fa-regular fa-user-group"></i>
                 </div>
                 <br>
-                <!-- Turnos del evento -->
-                <div id="turnos" class="turnos">TURNOS DISPONIBLES:&nbsp;</div>
-                <br>
-                <div class="servicios_salon">
-                    <label for="servicios">SERVICIOS DE SALÓN:&nbsp;</label>
-                    <select id="servicios" name="servicios" class="servicios">
-                        <option value="seleccione">Seleccione </option>
-                        <option value="si">Si</option>
-                        <option value="no">No</option>
-                    </select>
+                <!-- Selección de turno -->
+                <div class="servicios_dos">
+                    <div id="turnos" class="turnos">TURNOS DISPONIBLES:&nbsp;</div>
+                    <div class="servicios_salon">
+                        <label for="servicios">&nbsp;SERVICIOS DE SALÓN:&nbsp;</label>
+                        <select id="servicios" name="servicios" class="servicios">
+                            <option value="seleccione">Seleccione </option>
+                            <option value="si">Si</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <br>
-            <!--botón para calcular cotización-->
+            <!--Botón para calcular cotización-->
             <div class="btn_uno grid">
                 <input type="button" onclick="limpiarForm()" value="Limpiar Formulario" class="boton_cotizar">
-                <input type="button" onclick="calcularCosto()" value="Cotizar Evento" class="boton_cotizar">
+                <input type="button" onclick="obtenerCalcularCosto()" value="Cotizar Evento" class="boton_cotizar">
                 <span id="result"></span>
+                <input type="button" onclick="obtenerCalcularCostoReserva()" value="Reservar" class="boton_reservar">
+                <span id="result-reserva"></span>
             </div>
         </form>
-        <!--fin del formulario de cotización-->
+        <!--Fin del formulario de cotización-->
         </div>
     </section>
     <script src="./index.js"></script>
