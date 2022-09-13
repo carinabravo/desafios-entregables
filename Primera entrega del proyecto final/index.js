@@ -1,4 +1,5 @@
 /***** FORMULARIO DE CONTACTO *****/
+
 const id_form_contactanos = "formulario__contactanos";
 
 const form_contactanos = document.getElementById(`${id_form_contactanos}`);
@@ -6,16 +7,19 @@ const inputs = [
   ...document.querySelectorAll(`#${id_form_contactanos} input,textarea`),
 ];
 
+recuperarDatos();
+
+/** Expresiones regex */
 const expresiones = {
   nombre: /^[a-zA-ZÀ-ÿ\s]{5,30}$/, // Letras y espacios, pueden llevar acentos.
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-  telefono: /^\d{10,14}$/, // 10 a 14 números.
+  telefono: /^\d.{10}$/, // Número de área más números.
   consulta: /^[a-zA-ZÀ-ÿ\s]{10,200}$/, // Letras y espacios, pueden llevar acentos.
 };
 
 const nombreElementos = ["nombre", "correo", "telefono", "consulta"];
 
-/** indica si el campo fue validado */
+/** Indica si el campo fue validado */
 const campos = {
   nombre: undefined,
   correo: undefined,
@@ -23,22 +27,9 @@ const campos = {
   consulta: undefined,
 };
 
-/** validación de formulario de contacto */
+/** Validación de formulario de contacto - (Resume todo el switch en una sola linea) */
 const validarFormulario = (e) => {
-  // resume todo el switch en una sola linea = validarCampo(expresiones[e.target.name], e.target, e.target.name)
-  switch (e.target.name) {
-    case "nombre":
-      validarCampo(expresiones.nombre, e.target, "nombre");
-      break;
-    case "correo":
-      validarCampo(expresiones.correo, e.target, "correo");
-      break;
-    case "telefono":
-      validarCampo(expresiones.telefono, e.target, "telefono");
-      break;
-    case "consulta":
-      validarCampo(expresiones.consulta, e.target, "consulta");
-  }
+  validarCampo(expresiones[e.target.name], e.target, e.target.name);
 };
 
 /** Validación de campos de formulario */
@@ -53,13 +44,7 @@ const validarCampo = (expresion, input, campo) => {
     `#grupo__${campo} .formulario__input-error`
   );
 
-  // para debuggear - EJEMPLO -
-  // if (!parrafoError) {
-  //   console.log(campo)
-  //   debugger;
-  // }
-
-  /** valida si la expresión regular es correcta o no */
+  /** Valida si la expresión regular es correcta o no */
   if (expresion.test(input.value)) {
     campoInput.classList.remove("formulario__grupo-incorrecto");
     campoInput.classList.add("formulario__grupo-correcto");
@@ -91,12 +76,21 @@ inputs.forEach((input) => {
 form_contactanos.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  /** valida el campo para todos los inputs que aún no fueron validados */
+  /** Valida el campo para todos los inputs que aún no fueron validados */
   inputs
     .filter((input) => campos[input.name] == undefined)
     .forEach((input) => {
       validarCampo(expresiones[input.name], input, input.name);
     });
+
+  /** Implementa Storage y Json en formulario de contacto - datos personales */
+  const camposParaGuardar = {
+    nombre: inputs.find((i) => i.id == "nombre").value,
+    correo: inputs.find((i) => i.id == "correo").value,
+    telefono: inputs.find((i) => i.id == "telefono").value,
+  };
+
+  localStorage.setItem("form_contactanos", JSON.stringify(camposParaGuardar));
 
   if (campos.nombre && campos.telefono && campos.correo && campos.consulta) {
     form_contactanos.reset();
@@ -113,82 +107,84 @@ form_contactanos.addEventListener("submit", (e) => {
   }
 });
 
-/** retorna limpieza de formulario de contacto */
-function limpiarFormContacto() {
-  const limpiarContacto = prompt(
-    "¿Desea limpiar el formulario? \n ¡Cuidado! Perderá todos los datos ingresados. \n Ingrese (si o no) según desee."
-  );
-  if (limpiarContacto == "no") {
-    return;
-  } else if (limpiarContacto == "si") {
-    document.getElementById("formulario__contactanos").reset();
-    document
-      .getElementById("formulario__mensaje")
-      .classList.remove("formulario__mensaje-activo");
-    document
-      .getElementById("formulario__mensaje-exito")
-      .classList.remove("formulario__mensaje-exito-activo");
-
-    /** limpia campo e íconos del formulario de contacto */
-    nombreElementos.forEach((campo) => {
-      const campoInput = document.getElementById(`grupo__${campo}`);
-      const iconInput = document.querySelector(`#grupo__${campo} i`);
-      const parrafoError = document.querySelector(
-        `#grupo__${campo} .formulario__input-error`
-      );
-      if (iconInput) {
-        campoInput.classList.remove("formulario__grupo-incorrecto");
-        campoInput.classList.remove("formulario__grupo-correcto");
-        iconInput.classList.remove("fa-check-circle");
-        iconInput.classList.remove("fa-times-circle");
-        parrafoError.classList.remove("formulario__input-error-activo");
-      }
-    });
+/** Recupera datos del Local Storage */
+function recuperarDatos() {
+  const camposGuardados = JSON.parse(localStorage.getItem("form_contactanos"));
+  if (camposGuardados !== null) {
+    inputs.find((i) => i.id == "nombre").value = camposGuardados.nombre;
+    inputs.find((i) => i.id == "correo").value = camposGuardados.correo;
+    inputs.find((i) => i.id == "telefono").value = camposGuardados.telefono;
+  } else {
+    // Si no hay datos, no hago nada.
   }
 }
 
-/***** FORMULARIO DE COTIZACIÓN PARA RESERVA Y ALQUILER DE SALÓN *****/
+/** Retorna limpieza de formulario de contacto */
+function limpiarFormContacto() {
+  document.getElementById("formulario__contactanos").reset();
+  document
+    .getElementById("formulario__mensaje")
+    .classList.remove("formulario__mensaje-activo");
+  document
+    .getElementById("formulario__mensaje-exito")
+    .classList.remove("formulario__mensaje-exito-activo");
+
+  /** Limpia campo e íconos del formulario de contacto */
+  nombreElementos.forEach((campo) => {
+    const campoInput = document.getElementById(`grupo__${campo}`);
+    const iconInput = document.querySelector(`#grupo__${campo} i`);
+    const parrafoError = document.querySelector(
+      `#grupo__${campo} .formulario__input-error`
+    );
+    if (iconInput) {
+      campoInput.classList.remove("formulario__grupo-incorrecto");
+      campoInput.classList.remove("formulario__grupo-correcto");
+      iconInput.classList.remove("fa-check-circle");
+      iconInput.classList.remove("fa-times-circle");
+      parrafoError.classList.remove("formulario__input-error-activo");
+    }
+  });
+}
+
+/***** FORMULARIO DE COTIZACIÓN PARA ALQUILER DE SALÓN *****/
+
 const AFIRMATIVO = "si";
 const NEGATIVO = "no";
-
-/** Bienvenida a formulario de cotización */
-alert("¡BIENVENIDO/A! te encuentras a un paso de cotizar tu próximo evento.");
 
 crearRadiosTurno();
 crearRadiosOpcion();
 
 // Definición de funciones para el formulario de cotización
-
-/** calcula el costo total de una cotización */
+/** Calcula el costo total de una cotización */
 function calcularCosto() {
   const datos = obtenerDatosFormCotizacion();
 
-  /** se calculan los costos */
+  /** Se calculan los costos */
   let resultado1 = costoSalon(datos.numHoras);
   let resultado2 = costoPorPersona(datos.numPersonas);
   let resultado3 = costoAlquilerServicios(datos.servicios);
 
-  /** retorna el resultado final de cotización */
+  /** Retorna el resultado final de cotización */
   let resultadoTotal = resultado1 + resultado2 + resultado3;
   return resultadoTotal;
 }
 
-/** retorna el costo básico del alquiler del salón */
+/** Retorna el costo básico del alquiler del salón */
 function costoSalon(numHoras) {
-  return numHoras * 40000;
+  return numHoras * 20000;
 }
 
-/** retorna el costo por invitado */
+/** Retorna el costo por invitado */
 function costoPorPersona(numPersonas) {
   return numPersonas * 2000;
 }
 
-/** retorna el costo de los servicio de salón si la opción es afirmativa */
+/** Retorna el costo de los servicio de salón si la opción es afirmativa */
 function costoAlquilerServicios(servicios) {
   let costo = 0;
   switch (servicios) {
     case AFIRMATIVO:
-      costo = 150000;
+      costo = 180000;
       break;
     case NEGATIVO:
       costo = 0;
@@ -197,77 +193,113 @@ function costoAlquilerServicios(servicios) {
   return costo;
 }
 
-/** se obtienen los datos de cotización */
+/** Se obtienen los datos de cotización */
 function obtenerDatosFormCotizacion() {
   let numHoras = parseInt(document.getElementById("numHoras").value);
   let numPersonas = parseInt(document.getElementById("numPersonas").value);
   let servicios = document.getElementById("servicios").value;
 
   let opciones = [...document.getElementsByName("opcion")];
-  let opcion = opciones.find((radio) => radio.checked); //retorna el primero que cumple la condición.
+  let opcion = opciones.find((radio) => radio.checked); //Retorna el primero que cumple la condición.
 
   let fecha = document.getElementById("fecha").value;
 
   let turnos = [...document.getElementsByName("turno")];
-  let turno = turnos.find((radio) => radio.checked); //retorna el primero que cumple la condición.
+  let turno = turnos.find((radio) => radio.checked); //Retorna el primero que cumple la condición.
 
   return {
     numHoras,
     numPersonas,
     servicios,
-    opcion: opcion ? opcion.id : null, // if corto (si opción existe devuelve opción.id, sino devuelve null)
+    opcion: opcion ? opcion.id : null, // If corto (si opción existe devuelve opción.id, sino devuelve null).
     fecha: fecha ? fecha : null,
     turno: turno ? turno.id : null,
   };
 }
 
-/** retorna la validación del formulario de cotización */
+/** Retorna la validación del formulario de cotización */
 function validarFormCotizacion() {
   const datos = obtenerDatosFormCotizacion();
 
-  const res1 = validarSalon(datos.numHoras);
-  const res2 = validarPorPersona(datos.numPersonas);
-  const res3 = validarAlquilerServicios(datos.servicios);
-  const res4 = validarOpciones(datos.opcion);
-  const res5 = validarFecha(datos.fecha);
-  const res6 = validarTurno(datos.turno);
+  const validacionSalon = validarSalon(datos.numHoras);
+  const validacionInvitados = validarPorPersona(datos.numPersonas);
+  const validacionAlquiler = validarAlquilerServicios(datos.servicios);
+  const validacionOpciones = validarOpciones(datos.opcion);
+  const validacionFecha = validarFecha(datos.fecha);
+  const validacionTurno = validarTurno(datos.turno);
 
-  mostrarAlertas(res1, res2, res3, res4, res5, res6);
+  mostrarMensajes(
+    validacionSalon,
+    validacionInvitados,
+    validacionAlquiler,
+    validacionOpciones,
+    validacionFecha,
+    validacionTurno
+  );
 
-  return res1 && res2 && res3 && res4 && res5 && res6;
+  return (
+    validacionSalon &&
+    validacionInvitados &&
+    validacionAlquiler &&
+    validacionOpciones &&
+    validacionFecha &&
+    validacionTurno
+  );
 }
 
-/** devuelve alertas al usuario, si las validaciones no se cumplen */
-function mostrarAlertas(horas, personas, servicios, opcion, fecha, turno) {
-  if (!horas) {
-    alert("Ingrese cantidad de horas de alquiler. (Máximo 8 Hs)");
+/** Devuelve mensajes al usuario, si las validaciones no se cumplen */
+function mostrarMensajes(horas, personas, servicios, opcion, fecha, turno) {
+  const p_horas_error = document.querySelector("#grupo__numHoras p");
+  const p_personas_error = document.querySelector("#grupo__numPersonas p");
+  const p_servicios_error = document.querySelector("#grupo__servicios p");
+  const p_opcion_error = document.querySelector("#opciones p");
+  const p_fecha_error = document.querySelector("#grupo__fechaEvento p");
+  const p_turno_error = document.querySelector("#turnos p");
+
+  if (horas == true) {
+    p_horas_error.style.display = "none";
+  } else {
+    p_horas_error.style.display = "block";
   }
-  if (!personas) {
-    alert(
-      "Ingrese cantidad de invitados que asistirán al evento.\n(Máximo 1.500 personas)"
-    );
+
+  if (personas == true) {
+    p_personas_error.style.display = "none";
+  } else {
+    p_personas_error.style.display = "block";
   }
-  if (!servicios) {
-    alert("Seleccione una opción de servicio de salón.");
+
+  if (servicios == true) {
+    p_servicios_error.style.display = "none";
+  } else {
+    p_servicios_error.style.display = "block";
   }
-  if (!opcion) {
-    alert("Seleccione una opción de evento.");
+
+  if (opcion == true) {
+    p_opcion_error.style.display = "none";
+  } else {
+    p_opcion_error.style.display = "block";
   }
-  if (!fecha) {
-    alert("Seleccione la fecha del evento.");
+
+  if (fecha == true) {
+    p_fecha_error.style.display = "none";
+  } else {
+    p_fecha_error.style.display = "block";
   }
-  if (!turno) {
-    alert("Seleccione un turno.");
+
+  if (turno == true) {
+    p_turno_error.style.display = "none";
+  } else {
+    p_turno_error.style.display = "block";
   }
 }
 
-/** retorna las validaciones de cada ejecución */
+/** Retorna las validaciones de cada ejecución */
 function validarSalon(numHoras) {
-  return numHoras <= 8;
+  return (numHoras >=1 && numHoras <=8);
 }
 
 function validarPorPersona(numPersonas) {
-  return numPersonas <= 1500;
+  return (numPersonas >= 10 && numPersonas <= 1800);
 }
 
 function validarAlquilerServicios(servicios) {
@@ -286,22 +318,35 @@ function validarTurno(turnos) {
   return turnos != null;
 }
 
-/** retorna el costo de cotización luego de validar los resultados */
-function obtenerCalcularCosto() {
+/** Retorna el costo de cotización y reserva - luego de validar */
+function obtenerCotizacionConReserva() {
   if (!validarFormCotizacion()) {
     return;
   }
+
   const resultadoTotal = calcularCosto();
   document.getElementById("result").innerText = `$ ${resultadoTotal}`;
-}
+  document.getElementById("result-reserva").innerText = `$ ${
+    (resultadoTotal * 20) / 100
+  }`;
 
-/** retorna el costo de reserva */
-function obtenerCalcularCostoReserva() {
-  if (!validarFormCotizacion()) {
-    return;
-  }
-  const resultadoTotal = (calcularCosto() * 20) / 100;
-  document.getElementById("result-reserva").innerText = `$ ${resultadoTotal}`;
+  const datosCotizacion = obtenerDatosFormCotizacion();
+  /** Implementa Storage y Json en formulario de cotización - Datos del evento */
+  const camposGuardar = {
+    numHoras: datosCotizacion.numHoras,
+    numPersonas: datosCotizacion.numPersonas,
+    servicios: datosCotizacion.servicios,
+    opcion: datosCotizacion.opcion,
+    fecha: datosCotizacion.fecha,
+    turno: datosCotizacion.turno,
+    total: resultadoTotal,
+    reserva: (resultadoTotal * 20) / 100,
+  };
+
+  localStorage.setItem("formulario", JSON.stringify(camposGuardar));
+
+  /** quita clase disabled-link al link del botón de reservar */
+  document.querySelector(".disabled-link").classList.remove("disabled-link");
 }
 
 /** Arrays - retorna "radios" con ciclo For of para seleccionar un evento */
@@ -333,9 +378,9 @@ function crearRadiosOpcion() {
     },
   ];
 
-  const opcionesDiv = document.getElementById("opciones");
+  const opcionesDiv = document.querySelector("#opciones div");
 
-  /**  se crean elementos "radios" al formulario a partir de objetos */
+  /**  Se crean elementos "radios" al formulario a partir de objetos */
   for (let radio of radios) {
     let input = document.createElement("input");
     input.setAttribute("id", radio.id);
@@ -368,9 +413,9 @@ function crearRadiosTurno() {
     },
   ];
 
-  const turnosDiv = document.getElementById("turnos");
+  const turnosDiv = document.querySelector("#turnos div");
 
-  /** se crean elementos "radios" al formulario a partir de objetos */
+  /** Se crean elementos "radios" al formulario a partir de objetos */
   for (let radio of radios) {
     let input = document.createElement("input");
     input.setAttribute("id", radio.id);
@@ -386,16 +431,17 @@ function crearRadiosTurno() {
   }
 }
 
-/** retorna limpieza del formulario de cotización */
+/** Retorna limpieza del formulario de cotización */
 function limpiarForm() {
-  const limpiarCotizacion = prompt(
-    "¿Desea limpiar el formulario? \n ¡Cuidado! Perderá todos los datos ingresados. \n Ingrese (si o no) según desee."
-  );
-  if (limpiarCotizacion == "no") {
-    return;
-  } else if (limpiarCotizacion == "si") {
-    console.log(document.getElementById("formulario"));
-    document.getElementById("formulario").reset();
-    document.getElementById("result").innerText = "";
-  }
+  document.getElementById("formulario").reset();
+  document.getElementById("result").innerText = "";
+  document.getElementById("result-reserva").innerText = "";
+
+  /** Limpia mensajes de error de validación del formulario de cotización */
+  document.querySelector("#grupo__numHoras p").style.display = "none";
+  document.querySelector("#grupo__numPersonas p").style.display = "none";
+  document.querySelector("#grupo__servicios p").style.display = "none";
+  document.querySelector("#opciones p").style.display = "none";
+  document.querySelector("#grupo__fechaEvento p").style.display = "none";
+  document.querySelector("#turnos p").style.display = "none";
 }
