@@ -12,28 +12,24 @@
 
 <body>
     <section class="formulario__uno grid">
-        <div class="contactanos">
-            <!--Formulario de contacto-->
-            <div class="form_contactanos">
+        <!--comienzo del formulario de contacto-->
+        <form id="formulario__contactanos" class="formulario__contactanos grid">
+            <div class="contactanos">
                 <h1 class="titulo_contactanos">Formulario de contacto</h1>
-            </div>
-            <!--comienzo del formulario-->
-            <form id="formulario__contactanos">
-                <p class="texto_contactanos">Dejanos tu consulta y a la brevedad un miempro de nuestro equipo se pondrá
-                    en contacto con vos para asesorarte y aclarar todas tus dudas!</p>
-
+                <h2 class="texto_contactanos">Dejanos tu consulta y a la brevedad un miempro de nuestro equipo se
+                    pondrá
+                    en contacto con vos para asesorarte y aclarar todas tus dudas!</h2>
                 <!-- Nombre y Apellido -->
                 <div class="formulario__grupo" id="grupo__nombre">
                     <label for="nombre" class="formulario__label">Nombre y Apellido</label>
                     <div class="formulario__grupo-input">
                         <input type="text" class="formulario__input" name="nombre" id="nombre"
-                            placeholder="Ingrese su nombre">
+                            placeholder="Ingrese nombre completo">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
-                    <p class="formulario__input-error">El nombre solo puede contener
+                    <p class="formulario__input-error">Solo debe contener
                         letras.</p>
                 </div>
-
                 <!-- Correo Electronico -->
                 <div class="formulario__grupo" id="grupo__correo">
                     <label for="correo" class="formulario__label">Correo Electrónico</label>
@@ -42,30 +38,27 @@
                             placeholder="nombre@correo.com">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
-                    <p class="formulario__input-error">El correo solo debe contener letras, numeros, puntos,
-                        guiones y guion bajo.</p>
+                    <p class="formulario__input-error">Solo debe contener letras, numeros, puntos,
+                        guiones y guión bajo.</p>
                 </div>
-
                 <!-- Teléfono / Celular -->
                 <div class="formulario__grupo" id="grupo__telefono">
                     <label for="telefono" class="formulario__label">Teléfono</label>
                     <div class="formulario__grupo-input">
-                        <input type="number" class="formulario__input" name="telefono" id="telefono"
-                            placeholder="Ingrese su teléfono">
+                        <input type="text" class="formulario__input" name="telefono" id="telefono"
+                            placeholder="221.1234567">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
-                    <p class="formulario__input-error">El teléfono solo debe contener números.</p>
+                    <p class="formulario__input-error">Solo debe contener números.</p>
                 </div>
-
                 <!-- Casilla de Consulta -->
                 <div class="formulario__grupo" id="grupo__consulta">
                     <label for="text" class="formulario__label">Consulta</label>
                     <textarea class="casilla__consulta formulario__input" name="consulta" id="consulta"
-                        placeholder="Ingrese su consulta"></textarea>
+                        placeholder="Ingrese consulta"></textarea>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     <p class="formulario__input-error">Debe realizar una consulta.</p>
                 </div>
-
                 <!-- Promociones vía E-mail -->
                 <div class="formulario__grupo" id="grupo__terminos">
                     <label class="formulario__label">
@@ -73,84 +66,95 @@
                         Deseo recibir promociones vía e-mail
                     </label>
                 </div>
-
                 <!-- Botones -->
-                <div class="btn__dos grid">
-                    <div class="formulario__grupo formulario__grupo-btn-enviar">
-                        <button type="submit" class="formulario__btn">Enviar</button>
-                    </div>
-
+                <div class="btn__dos">
                     <div class="formulario__grupo formulario__grupo-btn-limpiar">
                         <button type="button" onclick="limpiarFormContacto()" value="Limpiar formulario"
                             class="formulario__btn">Limpiar</button>
                     </div>
+                    <div class="formulario__grupo formulario__grupo-btn-enviar">
+                        <button type="submit" class="formulario__btn">Enviar</button>
+                    </div>
                 </div>
-
                 <!-- Mensaje de Exito -->
                 <div>
                     <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">El formulario se envió
                         correctamente!</p>
                 </div>
-
                 <!-- Mensaje de Error -->
                 <div class="formulario__mensaje" id="formulario__mensaje">
                     <p><i class="fas fa-exclamation-triangle"></i><b> Error: </b> Debe completar el formulario
                         correctamente!</p>
                 </div>
-            </form>
-            <!--Fin de formulario de contacto-->
+        </form>
+        <!--Fin de formulario de contacto-->
         </div>
     </section>
 
-    <section class="formulario__dos">
-        <!--Formulario de cotización-->
-        <div>
-            <h1 class="titulo_cotizacion">Formulario de Cotización para reserva y alquiler de salón</h1>
-        </div>
-        <!--Comienzo del formulario-->
-        <form id="formulario">
-            <p class=" texto_cotizacion">Recuerde indicar en cada caso lo que desea para el alquiler del salón y así
+    <section class="formulario__dos grid">
+        <!--Comienzo del formulario de cotización-->
+        <form id="formulario" class="formulario grid">
+            <h1 class="titulo_cotizacion">Formulario de Cotización</h1>
+            <h2 class=" texto_cotizacion">Recuerde indicar en cada caso lo que desea para el alquiler del salón y
+                así
                 cotizar correctamente su
-                próximo evento!</p>
+                próximo evento.</h2>
             <!--Opciones de evento-->
-            <div id="opciones" class="opciones">ELIJA UNA OPCIÓN:&nbsp;</div>
-            <br>
-            <!--Indicaciones para cotizar alquiler de salón-->
-            <div class="preguntas_evento">
-                <div>
-                    <!--Calendario-->
-                    <label for="fechaEvento">FECHA DEL EVENTO:&nbsp;</label>
-                    <input type="date" id="fecha" name="fecha" value="fecha" class="fecha">
-                    <!--Selección de c/horas-->
-                    <label for="numHoras">CANTIDAD DE HORAS:&nbsp;</label>
-                    <input type="number" id="numHoras" class="numHoras">
-                    <!--Selección de c/invitados-->
-                    <label for="numPersonas">&nbsp;CANTIDAD DE INVITADOS:&nbsp;</label>
-                    <input type="number" id="numPersonas" class="numPersonas">
-                    <i class="fa-regular fa-user-group"></i>
-                </div>
-                <br>
+            <div id="opciones"><b>Seleccione la opción deseada:</b>
+                <div class="opciones_evento"></div>
+                <p class="formulario__input-error__tres">Ingrese una opción.</p>
+            </div>
+            <div class="servicios_dos">
                 <!-- Selección de turno -->
-                <div class="servicios_dos">
-                    <div id="turnos" class="turnos">TURNOS DISPONIBLES:&nbsp;</div>
-                    <div class="servicios_salon">
-                        <label for="servicios">&nbsp;SERVICIOS DE SALÓN:&nbsp;</label>
-                        <select id="servicios" name="servicios" class="servicios">
-                            <option value="seleccione">Seleccione </option>
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
-                        </select>
+                <div id="turnos"><b>Turnos disponibles:</b>
+                    <div class="turnos"></div>
+                    <p class="formulario__input-error__tres">Ingrese un turno.</p>
+                </div>
+                <!-- Selección de servicios -->
+                <div id="grupo__servicios" class="servicios_salon">
+                    <label for="servicios" class="palabra_servicio">&nbsp;Servicios de salón:&nbsp;</label>
+                    <select id="servicios" name="servicios" class="servicios">
+                        <option value="seleccione"><b>Seleccione</b></option>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                    <p class="formulario__input-error__tres">Ingrese una opción de servicio.</p>
+                </div>
+            </div>
+            <!--Indicaciones para cotizar alquiler de salón-->
+            <div>
+                <div class="opciones_tres">
+                    <!--Calendario-->
+                    <div id="grupo__fechaEvento" class="fecha_evento">
+                        <label for="fechaEvento" class="palabra_fecha">Fecha del evento:&nbsp;</label>
+                        <input type="date" id="fecha" name="fecha" value="fecha" class="fecha">
+                        <p class="formulario__input-error__tres">Ingrese fecha.</p>
+                    </div>
+                    <!--Selección de c/horas-->
+                    <div id="grupo__numHoras" class="cantidad_horas">
+                        <label for="numHoras" class="palabra_horas">Cantidad de horas:&nbsp;</label>
+                        <input type="number" id="numHoras" class="numHoras">
+                        <p class="formulario__input-error__tres">Ingrese número de horas (Máximo 8Hs)</p>
+                    </div>
+                    <!--Selección de c/invitados-->
+                    <div id="grupo__numPersonas" class="cantidad_personas">
+                        <label for="numPersonas" class="palabra_invitados">&nbsp;Cantidad de invitados:&nbsp;</label>
+                        <input type="number" id="numPersonas" class="numPersonas">
+                        <p class="formulario__input-error__tres">Ingrese número de invitados (desde 10 hasta 1.800)
+                        </p>
                     </div>
                 </div>
             </div>
-            <br>
             <!--Botón para calcular cotización-->
-            <div class="btn_uno grid">
+            <div class="btn_uno">
                 <input type="button" onclick="limpiarForm()" value="Limpiar Formulario" class="boton_cotizar">
-                <input type="button" onclick="obtenerCalcularCosto()" value="Cotizar Evento" class="boton_cotizar">
-                <span id="result"></span>
-                <input type="button" onclick="obtenerCalcularCostoReserva()" value="Reservar" class="boton_reservar">
-                <span id="result-reserva"></span>
+                <input type="button" onclick="obtenerCotizacionConReserva()" value="Cotizar Evento"
+                    class="boton_cotizar">
+                <span id="result" class="result"></span>
+                <P class="texto_reserva">Reserva:</P>
+                <span id="result-reserva" class="result_reserva"></span>
+                <a href="./reserva.html" class="disabled-link"><input type="button" value="Reservar Evento"
+                        class="boton_reservar"></input></a>
             </div>
         </form>
         <!--Fin del formulario de cotización-->
