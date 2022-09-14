@@ -2,12 +2,12 @@
 const id_form_reservar = "formulario__reservar";
 
 const form_reservar = document.getElementById(`${id_form_reservar}`);
-const inputs = [...document.querySelectorAll(`#${id_form_reservar} input`)];
+const inputs = [...document.querySelectorAll(`#${id_form_reservar} input`)]; // Uso de Spread.
 
 recuperarDatos();
 recuperarReserva();
 
-/** Expresiones regex */
+/** RegExp */
 const expresiones = {
   nombre__dos: /^[a-zA-ZÀ-ÿ\s]{5,30}$/, // Letras y espacios, pueden llevar acentos.
   nombre__tres: /^[a-zA-ZÀ-ÿ\s]{5,30}$/, // Letras y espacios, pueden llevar acentos.
@@ -96,9 +96,10 @@ form_reservar.addEventListener("submit", (e) => {
 
   /** Valida el campo para todos los inputs que aún no fueron validados */
   inputs
-    .filter((input) => campos[input.name] == undefined)
+    .filter(({ name }) => campos[name] == undefined) // desestructuración en parámetros.
     .forEach((input) => {
-      validarCampo(expresiones[input.name], input, input.name);
+      const { name } = input; // desestructuración.
+      validarCampo(expresiones[name], input, name);
     });
 
   if (
