@@ -5,11 +5,11 @@ const id_form_contactanos = "formulario__contactanos";
 const form_contactanos = document.getElementById(`${id_form_contactanos}`);
 const inputs = [
   ...document.querySelectorAll(`#${id_form_contactanos} input,textarea`),
-];
+]; // Uso de Spread - (transforma de nodeList a arrays, ya que nodeList no tiene foreach).
 
 recuperarDatos();
 
-/** Expresiones regex */
+/** RegExp */
 const expresiones = {
   nombre: /^[a-zA-ZÀ-ÿ\s]{5,30}$/, // Letras y espacios, pueden llevar acentos.
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
@@ -211,7 +211,7 @@ function obtenerDatosFormCotizacion() {
     numHoras,
     numPersonas,
     servicios,
-    opcion: opcion ? opcion.id : null, // If corto (si opción existe devuelve opción.id, sino devuelve null).
+    opcion: opcion ? opcion.id : null, // operador ternario.
     fecha: fecha ? fecha : null,
     turno: turno ? turno.id : null,
   };
@@ -256,50 +256,26 @@ function mostrarMensajes(horas, personas, servicios, opcion, fecha, turno) {
   const p_fecha_error = document.querySelector("#grupo__fechaEvento p");
   const p_turno_error = document.querySelector("#turnos p");
 
-  if (horas == true) {
-    p_horas_error.style.display = "none";
-  } else {
-    p_horas_error.style.display = "block";
-  }
+  p_horas_error.style.display = horas == true ? "none" : "block"; // Operador ternario.
 
-  if (personas == true) {
-    p_personas_error.style.display = "none";
-  } else {
-    p_personas_error.style.display = "block";
-  }
+  p_personas_error.style.display = personas == true ? "none" : "block";
 
-  if (servicios == true) {
-    p_servicios_error.style.display = "none";
-  } else {
-    p_servicios_error.style.display = "block";
-  }
+  p_servicios_error.style.display = servicios == true ? "none" : "block";
 
-  if (opcion == true) {
-    p_opcion_error.style.display = "none";
-  } else {
-    p_opcion_error.style.display = "block";
-  }
+  p_opcion_error.style.display = opcion == true ? "none" : "block";
 
-  if (fecha == true) {
-    p_fecha_error.style.display = "none";
-  } else {
-    p_fecha_error.style.display = "block";
-  }
+  p_fecha_error.style.display = fecha == true ? "none" : "block";
 
-  if (turno == true) {
-    p_turno_error.style.display = "none";
-  } else {
-    p_turno_error.style.display = "block";
-  }
+  p_turno_error.style.display = turno == true ? "none" : "block";
 }
 
 /** Retorna las validaciones de cada ejecución */
 function validarSalon(numHoras) {
-  return (numHoras >=1 && numHoras <=8);
+  return numHoras >= 1 && numHoras <= 8;
 }
 
 function validarPorPersona(numPersonas) {
-  return (numPersonas >= 10 && numPersonas <= 1800);
+  return numPersonas >= 10 && numPersonas <= 1800;
 }
 
 function validarAlquilerServicios(servicios) {
