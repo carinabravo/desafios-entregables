@@ -114,37 +114,6 @@ input:disabled {
   opacity: 0;
 }
 
-.formulario__mensaje-exito__dos {
-  height: 60px;
-  width: 50%;
-  padding: 20px 20px 30px 20px;
-  background: #29c436;
-  font-size: 20px;
-  border-radius: 3px;
-  display: none;
-}
-
-.formulario__mensaje__dos {
-  height: 60px;
-  width: 70%;
-  background: #f66060;
-  padding: 20px 20px 30px 20px;
-  border-radius: 3px;
-  display: none;
-}
-
-.formulario__mensaje__dos p {
-  margin: 0;
-  color: #000;
-  font-size: 20px;
-}
-
-.formulario__mensaje-activo__dos,
-.formulario__mensaje-exito-activo__dos {
-  display: block;
-  margin: 15px 0 15px 0;
-}
-
 .btn__tres {
   display: flex;
   flex-direction: row;
