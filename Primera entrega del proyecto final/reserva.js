@@ -122,21 +122,22 @@ form_reservar.addEventListener("submit", (e) => {
 
     localStorage.setItem("form_reserva", JSON.stringify(camposParaGuardar));
 
-    form_reservar.reset();
+      form_reservar.reset();
 
-    const parrafo_mensaje_exito__dos = document.getElementById(
-      "formulario__mensaje-exito__dos"
-    );
-    parrafo_mensaje_exito__dos.classList.add(
-      "formulario__mensaje-exito-activo__dos"
-    );
-  } else {
-    const parrafo_mensaje_error__dos = document.getElementById(
-      "formulario__mensaje__dos"
-    );
-    parrafo_mensaje_error__dos.classList.add("formulario__mensaje-activo__dos");
+      Swal.fire({
+        icon: "success",
+        title: "Perfecto",
+        text: "El formulario se envió correctamente!", //uso del sweet alert
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Debe completar el formulario correctamente!", //uso del sweet alert
+      });
+    }
   }
-});
+);
 
 /** Recupera datos del Local Storage */
 function recuperarDatos() {
@@ -164,12 +165,6 @@ function recuperarReserva() {
 /** Retorna limpieza de formulario de reserva */
 function limpiarFormReservar() {
   document.getElementById("formulario__reservar").reset();
-  document
-    .getElementById("formulario__mensaje__dos")
-    .classList.remove("formulario__mensaje-activo__dos");
-  document
-    .getElementById("formulario__mensaje-exito__dos")
-    .classList.remove("formulario__mensaje-exito-activo__dos");
 
   /** Limpia campo e íconos del formulario de reserva */
   nombreElementos.forEach((campo) => {
