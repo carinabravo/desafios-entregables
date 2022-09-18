@@ -78,9 +78,10 @@ form_contactanos.addEventListener("submit", (e) => {
 
   /** Valida el campo para todos los inputs que aún no fueron validados */
   inputs
-    .filter((input) => campos[input.name] == undefined)
+    .filter((name) => campos[name] == undefined) // desestructuración en parámetros.
     .forEach((input) => {
-      validarCampo(expresiones[input.name], input, input.name);
+      const { name } = input; // desestructuración.
+      validarCampo(expresiones[name], input, name);
     });
 
   /** Implementa Storage y Json en formulario de contacto - datos personales */
@@ -95,15 +96,17 @@ form_contactanos.addEventListener("submit", (e) => {
   if (campos.nombre && campos.telefono && campos.correo && campos.consulta) {
     form_contactanos.reset();
 
-    const parrafo_mensaje_exito = document.getElementById(
-      "formulario__mensaje-exito"
-    );
-    parrafo_mensaje_exito.classList.add("formulario__mensaje-exito-activo");
+    Swal.fire({
+      icon: "success",
+      title: "Perfecto",
+      text: "El formulario se envió correctamente!", //uso del sweet alert
+    });
   } else {
-    const parrafo_mensaje_error = document.getElementById(
-      "formulario__mensaje"
-    );
-    parrafo_mensaje_error.classList.add("formulario__mensaje-activo");
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Debe completar el formulario correctamente!", //uso del sweet alert
+    });
   }
 });
 
@@ -122,12 +125,6 @@ function recuperarDatos() {
 /** Retorna limpieza de formulario de contacto */
 function limpiarFormContacto() {
   document.getElementById("formulario__contactanos").reset();
-  document
-    .getElementById("formulario__mensaje")
-    .classList.remove("formulario__mensaje-activo");
-  document
-    .getElementById("formulario__mensaje-exito")
-    .classList.remove("formulario__mensaje-exito-activo");
 
   /** Limpia campo e íconos del formulario de contacto */
   nombreElementos.forEach((campo) => {
