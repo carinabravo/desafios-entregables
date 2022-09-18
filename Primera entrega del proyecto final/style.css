@@ -127,37 +127,6 @@ input[type="checkbox"] {
   box-shadow: 3px 0px 30px #a3a3a366;
 }
 
-.formulario__mensaje-exito {
-  height: 60px;
-  width: 50%;
-  padding: 20px 20px 30px 20px;
-  background: #29c436;
-  font-size: 20px;
-  border-radius: 3px;
-  display: none;
-}
-
-.formulario__mensaje {
-  height: 60px;
-  width: 70%;
-  background: #f66060;
-  padding: 20px 20px 30px 20px;
-  border-radius: 3px;
-  display: none;
-}
-
-.formulario__mensaje p {
-  margin: 0;
-  color: #000000;
-  font-size: 20px;
-}
-
-.formulario__mensaje-activo,
-.formulario__mensaje-exito-activo {
-  display: block;
-  margin: 15px 0 15px 0;
-}
-
 .btn__dos {
   display: flex;
   flex-direction: row;
