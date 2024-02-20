@@ -2,6 +2,6 @@
 
 ## Descripción
 
-Desafíos realizados para el curso de JavaScript
+Desafíos realizados para el curso de JavaScript.
 
 ✔ prácticas.
